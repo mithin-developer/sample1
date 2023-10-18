@@ -1,0 +1,98 @@
+<div id="calculator">
+  <input type="text" id="display" disabled>
+  <div id="buttons">
+    <button class="calcButton" value="7">7</button>
+    <button class="calcButton" value="8">8</button>
+    <button class="calcButton" value="9">9</button>
+    <button class="calcButton" value="/">÷</button>
+    <button class="calcButton" value="4">4</button>
+    <button class="calcButton" value="5">5</button>
+    <button class="calcButton" value="6">6</button>
+    <button class="calcButton" value="*">×</button>
+    <button class="calcButton" value="1">1</button>
+    <button class="calcButton" value="2">2</button>
+    <button class="calcButton" value="3">3</button>
+    <button class="calcButton" value="-">-</button>
+    <button class="calcButton" value=".">.</button>
+    <button class="calcButton" value="0">0</button>
+    <button id="equals" class="calcButton" value="=">=</button>
+    <button class="calcButton" value="+">+</button>
+    <button id="clear" class="calcButton">C</button>
+  </div>
+</div>
+
+<script>
+  var display = document.getElementById('display');
+  var buttons = Array.prototype.slice.call(document.getElementsByClassName('calcButton'));
+  buttons.map(button => {
+    button.addEventListener('click', function () {
+      if (button.getAttribute('value') === '=') {
+        try {
+          var result = eval(display.value);
+          display.value = isNaN(result) ? '' : result;
+        } catch (e) {
+          display.value = 'Error';
+          setTimeout(function () {
+            display.value = '';
+          }, 2000);
+        }
+      } else if (button.getAttribute('value') === 'C') {
+        display.value = '';
+      } else {
+        if (button.getAttribute('value')) {
+          display.value += button.getAttribute('value');
+        }
+      }
+    });
+  });
+</script>
+
+
+
+<style>
+  body {
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  #calculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  #display {
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+    text-align: right;
+    font-size: 18px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333333;
+    color: white;
+  }
+
+  .calcButton {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #555555;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .calcButton:hover {
+    background-color: #777777;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+</style>

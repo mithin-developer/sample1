@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<script>
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    window.location.href = 'error.html';
+  }
+</script>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>TSET</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<div id="contextMenu" class="contextMenu" style="display: none;">
+  <!-- Added inline style to hide the context menu on page load -->
+  <button id="bingButton">Open On Web</button>
+</div>
+</div>
+
+<body scroll="no">
+  <div class="taskbar">
+    <!-- Add your taskbar content here -->
+    <button class="menu" id="openMenu">&#8239;&#8239;&#8239;&#8239;&#8239;&#8239;</button>
+
+    <div id="taskbarMenu" class="contextMenu">
+      <!-- Menu items go here -->
+      <a href="launcher.html"><button class="start" style="width: 200px;">Exit PlutoOS</button></a>
+      <button id="restartButton" class="start" style="width: 200px;">Restart</button>
+      <button id="calculatorButton" class="start" style="width: 200px;">Calculator</button>
+      <button id="chatButton" class="start" style="width: 200px;">PlutoAI</button>
+      <button id="openThemeManagerButton">Open Theme Manager</button>
+
+    </div>
+  </div>
+
+  <!-- First draggable window -->
+  <div style="display: none;" class="draggable" id="Calculator" data-width="800px" data-height="600px">
+    <div class="draggableHeader">
+      Calculator
+      <button id="closeButton2" class="closeButton" style="float:right;">&#8239;&#8239;</button>
+    </div>
+    <iframe scrolling="auto" src="calc.html"
+      style="pointer-events: auto; width:100%; height:calc(100% - 30px); position:absolute; left:0; top:50px;"></iframe>
+    <div class="resizer"></div>
+  </div>
+  <!-- Second draggable window -->
+  <div style="display: none;" class="draggable" id="Bing" data-width="800px" data-height="600px">
+    <div class="draggableHeader">
+      Bing | Microsoft Corp.
+      <button id="closeButton2" class="closeButton" style="float:right;">&#8239;&#8239;</button>
+    </div>
+    <iframe scrolling="auto" src="https://bing.com"
+      style="pointer-events: auto; width:100%; height:calc(100% - 30px); position:absolute; left:0; top:50px;"></iframe>
+
+    <!-- Adjusted the height again for the header here -->
+
+    <div class="resizer"></div>
+  </div>
+
+  <div style="display: none;" class="draggable" id="chat" data-width="800px" data-height="600px">
+    <div class="draggableHeader">
+      PlutoChat | Chat with PlutoAI
+      <button id="closeButton2" class="closeButton" style="float:right;">&#8239;&#8239;</button>
+    </div>
+    <iframe scrolling="auto" src="chat.html"
+      style="pointer-events: auto; width:100%; height:calc(100% - 30px); position:absolute; left:0; top:50px;">
+    </iframe>
+
+
+    <!-- Adjusted the height again for the header here -->
+
+    <div class="resizer"></div>
+  </div>
+
+  <div style="display: none;" class="draggable" id="chat" data-width="800px" data-height="600px">
+    <div class="draggableHeader">
+      THeme!
+      <button id="closeButton2" class="closeButton" style="float:right;">&#8239;&#8239;</button>
+    </div>
+    <iframe scrolling="auto" src="theme.html"
+      style="pointer-events: auto; width:100%; height:calc(100% - 30px); position:absolute; left:0; top:50px;">
+    </iframe>
+
+
+    <!-- Adjusted the height again for the header here -->
+
+    <div class="resizer"></div>
+  </div>
+
+  <div class="draggable" id="Setup" data-width="800px" data-height="600px">
+    <div class="draggableHeader">
+      Setup
+      <button id="closeButton2" class="closeButton" style="float:right;">&#8239;&#8239;</button>
+    </div>
+    <h3>Setup:</h3>
+    <p>Welcome To Pluto! I've installed a few apps to get you started.</p>
+    <!-- Adjusted the height again for the header here -->
+
+    <div class="resizer"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const contextMenu = document.getElementById('contextMenu');
+      const taskbarMenu = document.getElementById('taskbarMenu');
+      const openMenuButton = document.getElementById('openMenu');
+
+      // Button event to open taskbar menu
+      openMenuButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        taskbarMenu.style.display = 'block';
+        taskbarMenu.style.animation = 'fadeIn 0.5s linear'; // Added animation to fade in taskbar menu
+      });
+
+      const reloadButton = document.createElement('button');
+      reloadButton.innerText = 'Restart';
+      contextMenu.appendChild(reloadButton);
+
+      reloadButton.addEventListener('click', function () {
+        location.reload();
+      });
+
+      document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        const posX = e.clientX;
+        const posY = e.clientY;
+        contextMenu.style.left = posX + 'px';
+        contextMenu.style.top = posY + 'px';
+        contextMenu.style.display = 'block';
+      });
+
+      // Add event listener to prevent context menu from closing when hovering over buttons
+      const contextMenuButtons = contextMenu.getElementsByTagName('button');
+      for (let i = 0; i < contextMenuButtons.length; i++) {
+        contextMenuButtons[i].addEventListener('mouseover', function (e) {
+          e.stopPropagation();
+        });
+      }
+
+      document.addEventListener('click', function () {
+        contextMenu.style.display = 'none';
+        taskbarMenu.style.display = 'none';
+      });
+    });
+    const restartButton = document.getElementById("restartButton");
+    restartButton.addEventListener("click", function () {
+      location.reload();
+    });
+    // closed windows
+    const contextMenu = document.getElementById('contextMenu');
+    const bingWindow = document.getElementById('Bing');
+    const bingButton = document.getElementById('bingButton');
+    bingButton.addEventListener('click', function () {
+      bingWindow.style.display = 'block';
+    });
+    const calculatorWindow = document.getElementById('Calculator');
+    const calculatorButton = document.getElementById('calculatorButton');
+    calculatorButton.addEventListener('click', function () {
+      calculatorWindow.style.display = 'block';
+    });
+    const chatWindow = document.getElementById('chat');
+    const chatButton = document.getElementById('chatButton');
+    chatButton.addEventListener('click', function () {
+      chatWindow.style.display = 'block';
+    });
+
+    const chatWindow = document.getElementById('chat');
+    const openThemeManagerWindow = document.getElementById('openThemeManagerButton');
+    chatButton.addEventListener('click', function () {
+      chatWindow.style.display = 'block';
+    });
+  </script>
+
+</body>
+
+</html>

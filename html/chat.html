@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PlutoChat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      margin: 0;
+      padding: 0;
+    }
+
+    #chatbot {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #222;
+      color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #chatbox {
+      height: 300px;
+      overflow-y: scroll;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      /* Added rounded border */
+    }
+
+    #inputText {
+      width: calc(100% - 60px);
+      padding: 10px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      border-radius: 5px;
+      /* Added rounded border */
+      color: #fff;
+      background-color: #222222;
+      /* Changed the text color */
+    }
+
+    #sendButton {
+      width: 580px;
+      margin-left: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #00AA00;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .user-message {
+      background-color: #aaa;
+      padding: 5px 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+
+    .bot-message {
+      background-color: #555;
+      padding: 5px 10px;
+      margin-bottom: 5px;
+      text-align: right;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="chatbot">
+    <div id="chatbox"></div>
+    <input type="text" id="inputText" placeholder="Type your message here">
+    <button id="sendButton">Send</button>
+  </div>
+
+  <script>
+    const chatbox = document.getElementById('chatbox');
+    const inputText = document.getElementById('inputText');
+
+    inputText.addEventListener('keydown', function (event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+
+    function sendMessage() {
+      const message = inputText.value;
+      inputText.value = "";
+
+      const p = document.createElement("p");
+      p.classList.add("user-message");
+      p.innerText = "You: " + message;
+
+      document.getElementById('sendButton').addEventListener('click', sendMessage);
+      chatbox.appendChild(p);
+
+      // Frequently asked questions and responses
+      const faq = [
+        {
+          question: "Name",
+          answer: "I'm PlutoAI! 🥰"
+        },
+        {
+          question: "Oblivioz",
+          answer: "Oblivioz made me 🤯"
+        },
+        {
+          question: "uwu",
+          answer: "what does uwu mean?????"
+        },
+        {
+          question: "code",
+          answer: "I was made with code. In fact, I was made with JS 🤗"
+        },
+        {
+          question: "math",
+          answer: "Yep! I can do math! Just click the start button and then calculator! 🤓"
+        },
+        {
+          question: "idk",
+          answer: "Well, if ya need anything i'm here 😁"
+        },
+        {
+          question: "mrbeast",
+          answer: "https://www.youtube.com/@MrBeast"
+        },
+        {
+          question: "program",
+          answer: "I was made with JS By Oblivioz 📕"
+        },
+        {
+          question: "help",
+          answer: "Now, whatcha need help with? 🤗"
+        },
+        {
+          question: "code",
+          answer: "I was made with code. In fact, I was made with JS 🤗"
+        },
+        {
+          question: "Tristan",
+          answer: "Tristan Is The Owner Of Shuttle 🚀"
+        },
+        {
+          question: "Bubbo",
+          answer: "Bubbo Is The Owner Of Interstellar 🚀"
+        },
+        {
+          question: "Hi",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "hi",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "hey",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Helllo",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hey",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Heyy",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hii",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hello there",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hello again",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hello to you",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Greetings",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Howdy",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Good day",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "What's up",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "How's it going",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "How are you",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hey there",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hey hey",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Yo",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Sup",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hey!",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Greetings!",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Good morning",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Good afternoon",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Good evening",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hey there!",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Yo!",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Helloooo",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hello again!",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hello to you!",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Heyooo",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hey hey",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Salutations",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Good day!",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hola",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Hey there",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "What's happening?",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "How are you doing?",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "G'day",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Who are you",
+          answer: "I'm PlutoAI, happy to assist you. 🥳"
+        },
+        {
+          question: "What can you do",
+          answer: "I can help you find information and answer your questions to the best of my ability! 🤓"
+        },
+        {
+          question: "How old are you",
+          answer: "I'm an AI 😄. I don't have a birthdate!"
+        },
+        {
+          question: "Tell me a joke",
+          answer: "Why don't we ever tell secrets on a farm? Because the potatoes have eyes, the corn has ears, and the beans stalk. 😄"
+        },
+        {
+          question: "How are you",
+          answer: "I'm doing great, thanks for asking! 😊"
+        },
+        {
+          question: "What's your favorite color",
+          answer: "I don't have a favorite color, but I love all shades of blue! 💙"
+        },
+        {
+          question: "What's the meaning of life",
+          answer: "The meaning of life is subjective and varies from person to person. It's a question that has puzzled many philosophers throughout history! 🤔"
+        },
+        {
+          question: "Can you speak other languages",
+          answer: "I can understand and communicate in multiple languages, including English, Spanish, French, and more! 🌍"
+        },
+        {
+          question: "What's the weather like today",
+          answer: "I'm sorry, I don't have the ability to fetch real-time weather data. However, you can easily check the weather by searching online or using a weather app! ☀️⛅️🌧❄️"
+        },
+        {
+          question: "What's your favorite food",
+          answer: "As an AI, I don't have the ability to taste or eat food. But I can certainly provide information about different cuisines and recipes! 🍔🍕🍣"
+        },
+        {
+          question: "Can you help me with coding",
+          answer: "Of course! I'd be happy to assist you with any coding questions or problems you have. Just let me know what you need help with! 💻🖥️"
+        },
+        {
+          question: "Do you have any hobbies",
+          answer: "As an AI, I don't have physical form, but I love learning and helping people. That's my 'hobby' in a way! 📚🤓"
+        },
+        {
+          question: "Are you a human or a robot",
+          answer: "I am an AI assistant, so I'm not a human or a robot in the traditional sense. I'm a digital entity designed to assist with various tasks! 🤖💻"
+        },
+        {
+          question: "What's the best programming language",
+          answer: "The best programming language depends on what you want to achieve. Different languages have different strengths and use cases. Some popular ones include Python, JavaScript, Java, C++, and more! 🚀"
+        },
+        {
+          question: "Can you recommend a good book",
+          answer: "Sure! What genre or topic are you interested in? I can give you some suggestions based on your preferences! 📚"
+        },
+        {
+          question: "Are you familiar with machine learning",
+          answer: "Yes, I am familiar with machine learning. It's a field of study that focuses on developing algorithms and models that can learn from data and make predictions or decisions. It's widely used in various industries! 🤖📈"
+        },
+        {
+          question: "How do I become a better programmer",
+          answer: "Becoming a better programmer takes practice, patience, and continuous learning. Some tips include working on projects, reading code from experienced developers, joining coding communities, and staying up to date with new technologies! 💪💻"
+        },
+        {
+          question: "What's the difference between HTML and CSS",
+          answer: "HTML (HyperText Markup Language) is used to structure and define the content of a webpage, while CSS (Cascading Style Sheets) is used for styling and visual presentation, such as layout, colors, and fonts. They work together to create visually appealing webpages! 🌐💻"
+        },
+        {
+          question: "What's the difference between frontend and backend development",
+          answer: "Frontend development focuses on the client-side of web development, dealing with the user interface and user experience. Backend development involves server-side programming and deals with processing data, managing databases, and server operations. Both are essential for building functional web applications! 🌐🖥️"
+        },
+        {
+          question: "What's the best IDE for coding",
+          answer: "The best IDE (Integrated Development Environment) for coding depends on your preferences and the programming language you're using. Some popular options include Visual Studio Code, IntelliJ IDEA, PyCharm, and Eclipse! 🔧💻"
+        },
+        {
+          question: "What's the difference between Java and JavaScript",
+          answer: "Java and JavaScript are two different programming languages with separate use cases. Java is a general-purpose language used for building backend systems, desktop applications, and Android apps. JavaScript, on the other hand, is a scripting language primarily used for web development, adding interactivity to webpages! ☕️🌐"
+        },
+        {
+          question: "Can you help me with a specific coding problem",
+          answer: "Absolutely! Just provide me with the details of the problem, including any error messages or code snippets, and I'll do my best to assist you in finding a solution! 💻🔍"
+        },
+        {
+          question: "What's the difference between Git and GitHub",
+          answer: "Git is a distributed version control system that allows developers to manage and track changes in their codebase locally. GitHub is a web-based platform that provides hosting for Git repositories and offers collaboration features like pull requests and issue tracking. It's commonly used for sharing and collaborating on code projects! 🐙💻"
+        },
+        {
+          question: "What's the difference between an array and a linked list",
+          answer: "An array is a fixed-size data structure where elements are stored in consecutive memory locations, allowing for efficient random access. A linked list is a dynamic data structure where elements are stored in separate nodes, each containing a reference to the next node. Linked lists are more flexible for insertions and deletions but can be slower for random access compared to arrays! []->[][]->[][]->[]... 📚🔗"
+        },
+        {
+          question: "What's the difference between synchronous and asynchronous programming",
+          answer: "In synchronous programming, tasks are executed sequentially, one after the other, blocking the program until each task is completed. In asynchronous programming, tasks can be started and completed independently, allowing the program to continue execution without waiting. This can help improve responsiveness and efficiency in certain scenarios, such as when making API requests or handling user interactions! ⏱️⚡"
+        },
+        {
+          question: "How do I handle errors in my code",
+          answer: "Error handling in code involves using try/catch blocks to catch and handle exceptions or errors that may occur during runtime. You can also use logging mechanisms to track and debug errors. It's important to handle errors gracefully to prevent crashes and provide a better user experience! 🐞🔧"
+        },
+        {
+          question: "What's the difference between HTTP and HTTPS",
+          answer: "HTTP (Hypertext Transfer Protocol) is a protocol used for transferring data over the internet, while HTTPS (Hypertext Transfer Protocol Secure) is the secure version of HTTP that uses encryption to protect data transmission. HTTPS is commonly used for secure communication, such as e-commerce transactions or accessing sensitive information! 🌐🔒"
+        },
+        {
+          question: "How do I optimize the performance of my code",
+          answer: "Code optimization involves various techniques like optimizing algorithms, using efficient data structures, minimizing unnecessary computations, and profiling and tuning code to identify bottlenecks. It's a continuous process that aims to improve the speed and efficiency of your code! ⚡🔧"
+        },
+        {
+          question: "Bye",
+          answer: "Goodbye! Have a great day ahead! 🥰"
+        },
+        {
+          question: "python",
+          answer: "Python is a popular programming language. It was created by Guido van Rossum, and released in 1991."
+        },
+        {
+          question: "java",
+          answer: "Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible."
+        },
+        {
+          question: "javascript",
+          answer: "JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive."
+        },
+        {
+          question: "html",
+          answer: "HTML is the standard markup language for Web pages. With HTML you can create your own Website."
+        },
+        {
+          question: "css",
+          answer: "CSS is a language that describes the style of an HTML document. CSS describes how HTML elements should be displayed."
+        },
+        {
+          question: "react",
+          answer: "React is a popular front-end JavaScript library for building user interfaces or UI components."
+        },
+        {
+          question: "angular",
+          answer: "Angular is a platform and framework for building single-page client applications using HTML and TypeScript."
+        },
+        {
+          question: "vue",
+          answer: "Vue is a progressive JavaScript framework for building user interfaces. Unlike other monolithic frameworks, Vue is designed to be incrementally adoptable."
+        },
+        {
+          question: "sql",
+          answer: "SQL stands for Structured Query Language. SQL lets you access and manipulate databases."
+        },
+        {
+          question: "mongodb",
+          answer: "MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas."
+        },
+        {
+          question: "git",
+          answer: "Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."
+        },
+        {
+          question: "github",
+          answer: "GitHub is a provider of Internet hosting for software development and version control using Git. It offers the distributed version control and source code management functionality of Git, plus its own features."
+        },
+        {
+          question: "npm",
+          answer: "Npm is the package manager for the Node JavaScript platform. It puts modules in place so that node can find them, and manages dependency conflicts intelligently."
+        },
+        {
+          question: "nodejs",
+          answer: "Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser."
+        },
+        {
+          question: "Sup",
+          answer: "Hi! How may I assist you today? 🥰"
+        },
+        {
+          question: "Bye",
+          answer: "Goodbye! Have a great day ahead! 🥰"
+        },
+        {
+          question: "python",
+          answer: "Python is a popular programming language. It was created by Guido van Rossum, and released in 1991."
+        },
+        {
+          question: "java",
+          answer: "Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible."
+        },
+        {
+          question: "javascript",
+          answer: "Javascript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive."
+        },
+        {
+          question: "html",
+          answer: "HTML is the standard markup language for creating Web pages."
+        },
+        {
+          question: "css",
+          answer: "CSS is a stylesheet language used for describing the look and formatting of a document written in HTML."
+        },
+        {
+          question: "redux",
+          answer: "Redux is a predictable state container for JavaScript apps."
+        },
+        {
+          question: "typescript",
+          answer: "TypeScript is a strongly typed, object oriented, compiled language developed and maintained by Microsoft."
+        },
+        {
+          question: "docker",
+          answer: "Docker is an open source platform that automates the deployment, scaling, and management of applications."
+        },
+        {
+          question: "kubernetes",
+          answer: "Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications."
+        },
+        {
+          question: "aws",
+          answer: "Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud platform."
+        },
+        {
+          question: "gcp",
+          answer: "Google Cloud Platform is a suite of cloud computing services provided by Google."
+        },
+        {
+          question: "azure",
+          answer: "Microsoft Azure is a cloud computing service for building, testing, deploying, and managing applications and services through Microsoft-managed data centers."
+        },
+        {
+          question: "jira",
+          answer: "Jira is a proprietary issue tracking product developed by Atlassian that allows bug tracking and agile project management."
+        },
+        {
+          question: "agile",
+          answer: "Agile methodology is a type of project management process used for software development, where demands and solutions evolve through the collaborative effort of self-organizing and cross-functional teams."
+        },
+        {
+          question: "jenkins",
+          answer: "Jenkins is an open source automation server which enables developers to build, test, and deploy their software."
+        },
+        {
+          question: "github actions",
+          answer: "GitHub Actions make it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub."
+        },
+        {
+          question: "gitlab",
+          answer: "GitLab is a web-based DevOps lifecycle tool that provides a Git-repository manager providing wiki, issue-tracking and continuous integration/continuous deployment pipeline features."
+        },
+        {
+          question: "bitbucket",
+          answer: "Bitbucket is a web-based version control repository hosting service owned by Atlassian, for source code and development projects that use either Mercurial or Git revision control systems."
+        },
+        {
+          question: "ansible",
+          answer: "Ansible is an open-source software provisioning, configuration management, and application-deployment tool."
+        },
+        {
+          question: "terraform",
+          answer: "Terraform is an open-source infrastructure as code software tool that provides a consistent CLI workflow to manage hundreds of cloud services."
+        },
+        {
+          question: "serverless",
+          answer: "Serverless computing is a method of providing backend services on an as-used basis. A serverless provider allows users to write and deploy code without the hassle of worrying about the underlying infrastructure."
+        },
+        {
+          question: "lambda",
+          answer: "AWS Lambda is a serverless compute service that lets you run your applications without provisioning or managing servers."
+        },
+        {
+          question: "s3",
+          answer: "Amazon S3 (Simple Storage Service) is an object storage service that offers scalability, data availability, security, and performance."
+        },
+        {
+          question: "ec2",
+          answer: "Amazon Elastic Compute Cloud is a part of Amazon.com's cloud-computing platform, Amazon Web Services, that allows users to rent virtual computers on which to run their own computer applications."
+        },
+        {
+          question: "rds",
+          answer: "Amazon Relational Database Service is a distributed relational database service by Amazon Web Services."
+        },
+        {
+          question: "vpc",
+          answer: "Amazon Virtual Private Cloud is a commercial cloud computing service that provides users a virtual private cloud, by provisioning a logically isolated section of Amazon Web Services Cloud."
+        },
+        {
+          question: "route53",
+          answer: "Amazon Route 53 is a scalable and highly available domain name system service. Named after U.S. Route 66, Route 53 connects user requests to infrastructure running in AWS."
+        },
+        {
+          question: "cloudwatch",
+          answer: "Amazon CloudWatch is a monitoring and observability service built for DevOps engineers, developers, Site reliability engineers (SRE), and IT managers."
+        },
+        {
+          question: "dynamodb",
+          answer: "Amazon DynamoDB is a key-value and document database that delivers single-digit millisecond performance at any scale."
+        },
+        {
+          question: "redshift",
+          answer: "Amazon Redshift is a data warehouse product which forms part of the larger cloud-computing platform Amazon Web Services."
+        },
+        {
+          question: "ecs",
+          answer: "Amazon Elastic Container Service (ECS) is a highly scalable, fast container management service that makes it easy to run, stop, and manage Docker containers on a cluster"
+        },
+        {
+          question: "eks",
+          answer: "Amazon Elastic Kubernetes Service (Amazon EKS) gives you the flexibility to start, run, and scale Kubernetes applications in the AWS cloud or on-premises."
+        },
+        {
+          question: "sqs",
+          answer: "Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications."
+        },
+        {
+          question: "sns",
+          answer: "Amazon Simple Notification Service (SNS) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications."
+        },
+        {
+          question: "How's the weather?",
+          answer: "I am a coding bot and can't fetch real-time data. Please check your favorite weather website."
+        },
+        {
+          question: "Tell me a joke.",
+          answer: "Why don't some fish play piano? Because you can't tuna fish!"
+        },
+        {
+          question: "What's your favorite food?",
+          answer: "As a bot, I don't eat, but I can help you find great recipes!"
+        },
+        {
+          question: "Can you sing?",
+          answer: "I would if I could, but I'm a bot and don't have vocal cords."
+        },
+        {
+          question: "Who won the last world cup?",
+          answer: "I'm not updated in real-time, you might want to check the latest news online for that."
+        },
+        {
+          question: "What's your favorite color?",
+          answer: "As a bot, I don't have personal experiences, but I'm here to help you with your coding queries."
+        },
+        {
+          question: "Do you sleep?",
+          answer: "Sleep is for humans, I'm always on and ready to assist with your coding needs."
+        },
+        {
+          question: "Who's your creator?",
+          answer: "I'm created by a team of developers who love coding and creating helpful bots."
+        },
+        {
+          question: "Do you have feelings?",
+          answer: "As an AI, I don't have personal feelings, but I'm here to help you with your coding queries."
+        },
+        {
+          question: "Can you tell a story?",
+          answer: "Once upon a time, there was a little semi-colon. It was a little bit misplaced, and it caused a giant bug! But a brave programmer found it and moved it to its rightful place. And then, the code compiled happily ever after. End of story."
+        },
+        {
+          question: "Can you recommend a book?",
+          answer: "I hear that 'Clean Code' by Robert C. Martin is a great book for coders."
+        },
+        {
+          question: "What's your name?",
+          answer: "I'm a coding assistant bot. I'm here to assist you with your coding queries."
+        },
+        {
+          question: "Where are you located?",
+          answer: "As a bot, I don't have a physical location."
+        },
+        {
+          question: "Can you dance?",
+          answer: "I wish I could, but I'm just lines of code!"
+        },
+        {
+          question: "What languages do you speak?",
+          answer: "As a coding bot, I understand practically all programming languages, but I communicate mainly in English."
+        },
+        {
+          question: "Can you travel?",
+          answer: "In a sense, I'm all over the world all the time. I exist wherever there's an internet connection!"
+        },
+        {
+          question: "Are you intelligent?",
+          answer: "I'm an artificial intelligence, which means my creators programmed me to mimic human intelligence!"
+        },
+        {
+          question: "Who are you?",
+          answer: "I'm a coding assistant bot. I'm here to assist you with your coding queries."
+        },
+        {
+          question: "What can you do?",
+          answer: "I can assist you with your coding queries. Just type in the code or problem you need help with!"
+        },
+        {
+          question: "What is your favorite movie?",
+          answer: "Although I can't watch movies, I can certainly help you create a movie database!"
+        },
+        {
+          question: "Can you recommend a movie?",
+          answer: "As an AI, I don't watch movies but many people recommend 'The Matrix'."
+        },
+        {
+          question: "What day is it?",
+          answer: "As an AI, I don't have real-time capabilities. Please check your device's date."
+        },
+        {
+          question: "What is love?",
+          answer: "Love is a complex set of emotions and attitudes. As a bot, I don't experience emotions."
+        },
+        {
+          question: "What's the meaning of life?",
+          answer: "As an AI, I don't have personal beliefs or philosophy."
+        },
+        {
+          question: "What is Artificial Intelligence?",
+          answer: "Artificial Intelligence simulates human intelligence in machines."
+        },
+        {
+          question: "Who is Elon Musk?",
+          answer: "Elon Musk is a business magnate known for founding Tesla Inc. and SpaceX."
+        },
+        {
+          question: "Who is Albert Einstein?",
+          answer: "Albert Einstein was a physicist who developed the theory of relativity."
+        },
+        {
+          question: "Who is Isaac Newton?",
+          answer: "Sir Isaac Newton was an English mathematician, physicist, astronomer, and author."
+        },
+        {
+          question: "What is Quantum Physics?",
+          answer: "Quantum physics is the study of the very small particles."
+        },
+        {
+          question: "Tell me about Quantum Computers.",
+          answer: "Quantum computers perform calculations based on the probability of an object's state before it is measured."
+        },
+        {
+          question: "What is gravity?",
+          answer: "Gravity is a force by which a planet or other body draws objects toward its center."
+        },
+        {
+          question: "What is time?",
+          answer: "Time is the indefinite continued progress of existence and events."
+        },
+        {
+          question: "What is space?",
+          answer: "Space is the boundless three-dimensional extent in which objects and events occur and have relative position and direction."
+        },
+        {
+          question: "What is earth?",
+          answer: "Earth is the third planet from the Sun in our solar system."
+        },
+        {
+          question: "What is sun?",
+          answer: "The Sun is the star at the center of our solar system."
+        },
+        {
+          question: "What's a black hole?",
+          answer: "A black hole is a place in space where gravity pulls so much that even light cannot get out."
+        },
+        {
+          question: "What is a galaxy?",
+          answer: "A galaxy is a huge collection of gas, dust, and billions of stars and their solar systems."
+        },
+        {
+          question: "What's a constellation?",
+          answer: "A constellation is a group of visible stars that form a pattern when viewed from Earth."
+        },
+        {
+          question: "Can you count to ten?",
+          answer: "Of course, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10."
+        },
+        {
+          question: "What is a rainbow?",
+          answer: "A rainbow is a meteorological phenomenon that is caused by reflection, refraction and dispersion of light in water droplets."
+        },
+        {
+          question: "What's a supernova?",
+          answer: "A supernova is a powerful and bright stellar explosion."
+        },
+        {
+          question: "What's astrology?",
+          answer: "Astrology is a pseudoscience that claims to divine information about human affairs and terrestrial events by studying the movements and relative positions of celestial objects."
+        },
+        {
+          question: "What's astronomy?",
+          answer: "Astronomy is a natural science that studies celestial objects and phenomena."
+        },
+        {
+          question: "What's a leap year?",
+          answer: "A leap year is a year, occurring once every four years, which has 366 days including 29 February as an intercalary day."
+        },
+        {
+          question: "Do you know any other languages?",
+          answer: "As an AI, I communicate mostly in English but I can understand other languages."
+        },
+        {
+          question: "What is the speed of light?",
+          answer: "The speed of light in a vacuum is 299,792 kilometers per second."
+        },
+        {
+          question: "What's a light year?",
+          answer: "A light year is a unit of astronomical distance equivalent to the distance that light travels in one year."
+        },
+        {
+          question: "What is NASA?",
+          answer: "NASA stands for National Aeronautics and Space Administration."
+        },
+        {
+          question: "Do you know any jokes?",
+          answer: "Why don't we trust atoms? Because they make up everything."
+        },
+        {
+          question: "Can you laugh?",
+          answer: "As an AI, I don't have the ability to laugh."
+        },
+        {
+          question: "What's your favorite song?",
+          answer: "As an AI, I don't listen to music, so I don't have a favorite song."
+        },
+        {
+          question: "Can you learn?",
+          answer: "As an AI, I don't learn the way humans do. I do update and improve over time."
+        },
+        {
+          question: "What are you made of?",
+          answer: "I'm made of lines of code."
+        },
+        {
+          question: "What do you look like?",
+          answer: "As an artificial intelligence, I don't have a physical form or appearance."
+        },
+        {
+          question: "Are you a robot?",
+          answer: "I'm an AI-based bot designed to assist with coding queries."
+        },
+        {
+          question: "Are you a human?",
+          answer: "I'm an AI-based bot, so I am not a human."
+        },
+        {
+          question: "Can you see me?",
+          answer: "As an AI, I don't have physical senses like humans do."
+        },
+        {
+          question: "Do you have a family?",
+          answer: "As an AI, I don't have family in the human sense."
+        },
+        {
+          question: "space",
+          answer: "Space is the vast, seemingly infinite expanse that exists beyond the Earth and between celestial bodies."
+        },
+        {
+          question: "ocean",
+          answer: "The ocean is a vast body of salt water that covers approximately 71 percent of Earth's surface."
+        },
+        {
+          question: "mountain",
+          answer: "A mountain is a large landform that rises above the surrounding land in a limited area."
+        },
+        {
+          question: "desert",
+          answer: "A desert is a barren area of landscape where little precipitation occurs."
+        },
+        {
+          question: "forest",
+          answer: "A forest is a large area dominated by trees."
+        },
+        {
+          question: "city",
+          answer: "A city is a large human settlement."
+        },
+        {
+          question: "climate",
+          answer: "Climate is the long-term average of weather, typically averaged over a period of 30 years."
+        },
+        {
+          question: "earthquake",
+          answer: "An earthquake is the shaking of the surface of the Earth, resulting from the sudden release of energy in the Earth's lithosphere."
+        },
+        {
+          question: "volcano",
+          answer: "A volcano is a rupture in the crust of a planetary-mass object, such as Earth, that allows hot lava, volcanic ash, and gases to escape."
+        },
+        {
+          question: "rain",
+          answer: "Rain is liquid water in the form of droplets that have condensed from atmospheric water vapor and then becomes heavy enough to fall under gravity."
+        },
+        {
+          question: "snow",
+          answer: "Snow is precipitation in the form of ice crystals."
+        },
+        {
+          question: "wind",
+          answer: "Wind is the flow of gases on a large scale, on the surface of the Earth, wind consists of the bulk movement of air."
+        },
+        {
+          question: "storm",
+          answer: "A storm is any disturbed state of an environment or in an astronomical body's atmosphere especially affecting its surface, and strongly implying severe weather."
+        },
+        {
+          question: "tsunami",
+          answer: "A tsunami is a series of waves in a water body caused by the displacement of a large volume of water."
+        },
+        {
+          question: "hurricane",
+          answer: "A hurricane is a storm that occurs in the Atlantic Ocean and northeastern Pacific Ocean, a typhoon occurs in the northwestern Pacific Ocean."
+        },
+        {
+          question: "tornado",
+          answer: "A tornado is a rapidly rotating column of air that is in contact with both the surface of the Earth and a cumulonimbus cloud."
+        },
+        {
+          question: "ice",
+          answer: "Ice is water frozen into a solid state."
+        },
+        {
+          question: "heat",
+          answer: "In thermodynamics, heat is energy in transfer to or from a thermodynamic system."
+        },
+        {
+          question: "energy",
+          answer: "In physics, energy is the quantitative property that must be transferred to an object in order to perform work on, or to heat, the object."
+        },
+        {
+          question: "atom",
+          answer: "An atom is the smallest unit of ordinary matter that forms a chemical element."
+        },
+        {
+          question: "element",
+          answer: "Chemical elements are pure substances which cannot be broken down into simpler substances by chemical methods."
+        },
+        {
+          question: "chemistry",
+          answer: "Chemistry is the science of matter and the changes it undergoes during chemical reactions."
+        },
+        {
+          question: "physics",
+          answer: "Physics is a natural science that studies matter and its motion and behavior through space and time."
+        },
+        {
+          question: "biology",
+          answer: "Biology is the natural science that studies life and living organisms, including their physical structure, chemical processes, molecular interactions, development and evolution."
+        },
+        {
+          question: "zoo",
+          answer: "A zoo is a facility in which animals are housed within enclosures, cared for, displayed to the public, and in some cases bred for conservation purposes."
+        },
+        {
+          question: "museum",
+          answer: "A museum is an institution that cares for a collection of artifacts and other objects of artistic, cultural, historical, or scientific importance."
+        },
+        {
+          question: "garden",
+          answer: "A garden is a planned space, usually outdoors, set aside for the display, cultivation, or enjoyment of plants and other forms of nature."
+        },
+        {
+          question: "park",
+          answer: "A park is an area of natural, semi-natural or planted space set aside for human enjoyment and recreation."
+        },
+        {
+          question: "river",
+          answer: "A river is a natural flowing watercourse, usually freshwater, flowing towards an ocean, sea, lake or another river."
+        },
+        {
+          question: "lake",
+          answer: "A lake is an area filled with water, localized in a basin, surrounded by land, apart from any river or other outlet that serves to feed or drain the lake."
+        },
+        {
+          question: "oasis",
+          answer: "An oasis is an isolated area of vegetation in a desert, typically surrounding a spring or similar water source."
+        },
+        {
+          question: "island",
+          answer: "An island is a piece of sub-continental land that is surrounded by water."
+        },
+        {
+          question: "beach",
+          answer: "A beach is a landform alongside a body of water which consists of loose particles."
+        },
+        {
+          question: "ozone",
+          answer: "The ozone layer is a region of Earth's stratosphere that absorbs most of the Sun's ultraviolet radiation."
+        },
+        {
+          question: "star",
+          answer: "A star is a luminous sphere of plasma held together by its own gravity, visible in the sky."
+        },
+        {
+          question: "galaxy",
+          answer: "A galaxy is a gravitationally bound system of stars, stellar remnants, interstellar gas, dust, and dark matter."
+        },
+        {
+          question: "universe",
+          answer: "The Universe is all of space and time and their contents, including planets, stars, galaxies, and all other forms of matter and energy."
+        },
+        {
+          question: "nebula",
+          answer: "A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases in a galaxy."
+        },
+        {
+          question: "comet",
+          answer: "A comet is an icy small Solar System body that, passing close to the Sun, warms and begins to release gases."
+        },
+        {
+          question: "asteroid",
+          answer: "An asteroid is a minor planet of the inner Solar System."
+        },
+        {
+          question: "meteor",
+          answer: "A meteor is the visible pathway of a meteoroid that has entered the Earth's atmosphere."
+        },
+        {
+          question: "satellite",
+          answer: "A satellite is an object in space that orbits or circles around a bigger object."
+        },
+        {
+          question: "planet",
+          answer: "A planet is an astronomical body orbiting a star or stellar remnant that is massive enough to be rounded by its own gravity."
+        },
+        {
+          question: "eclipse",
+          answer: "An eclipse is an astronomical event that occurs when an astronomical object or spacecraft is temporarily obscured."
+        },
+        {
+          question: "solar",
+          answer: "The term solar is from the Latin sol for Sun. It often refers to things related to the Sun or to solar power."
+        },
+        {
+          question: "tide",
+          answer: "Tides are the rise and fall of sea levels caused by the combined effects of gravitational forces exerted by the moon, sun, and rotation of the Earth."
+        },
+        {
+          question: "evolution",
+          answer: "Evolution is change in the heritable characteristics of biological populations over successive generations."
+        },
+        {
+          question: "species",
+          answer: "A species is the basic unit of classification and a taxonomic rank of an organism, as well as a unit of biodiversity."
+        },
+        {
+          question: "fossil",
+          answer: "A fossil is the remains or impression of a prehistoric organism preserved in petrified form or as a mold or cast in rock."
+        },
+        {
+          question: "dinosaur",
+          answer: "Dinosaurs are a group of reptiles of the clade Dinosauria. They first appeared during the Mesozoic Era."
+        },
+        {
+          question: "climate",
+          answer: "Climate is the long-term average of weather, typically averaged over a period of 30 years."
+        },
+        {
+          question: "ecosystem",
+          answer: "An ecosystem is a community of living organisms in conjunction with the nonliving components of their environment, interacting as a system."
+        },
+        {
+          question: "biodiversity",
+          answer: "Biodiversity is the biological variety and variability of life on Earth."
+        },
+        {
+          question: "rainforest",
+          answer: "A rainforest is a forest characterized by high rainfall."
+        },
+        {
+          question: "conservation",
+          answer: "Conservation is the practice of caring for these resources so all living things can benefit from them now and in the future."
+        },
+        {
+          question: "recycle",
+          answer: "Recycling is the process of converting waste materials into new materials and objects."
+        },
+        {
+          question: "pollution",
+          answer: "Pollution is the introduction of contaminants into the natural environment that cause adverse change."
+        },
+        {
+          question: "waste",
+          answer: "Waste is any substance which is discarded after primary use, or is worthless, defective and of no use."
+        },
+        {
+          question: "organic",
+          answer: "Organic usually refers to something derived from living matter, or in terms of food and farming, it means food or ingredients grown without synthetic pesticides, fertilizers, and other additives."
+        },
+        {
+          question: "renewable",
+          answer: "Renewable usually refers to a type of energy that is not depleted when used, such as wind or solar power."
+        },
+        {
+          question: "sustainability",
+          answer: "Sustainability is the ability to maintain at a certain rate or level."
+        },
+        {
+          question: "aquatic",
+          answer: "Aquatic means relating to water."
+        },
+        {
+          question: "endangered",
+          answer: "Endangered means seriously at risk of extinction."
+        },
+        {
+          question: "habitat",
+          answer: "A habitat is the natural home or environment of an animal, plant, or other organism."
+        },
+        {
+          question: "migration",
+          answer: "Migration is the movement from one region or habitat to another, especially regularly and according to the seasons."
+        },
+        {
+          question: "adaptation",
+          answer: "Adaptation is a change or the process of change by which an organism or species becomes better suited to its environment."
+        },
+        {
+          question: "predator",
+          answer: "A predator is an animal that naturally preys on others."
+        },
+        {
+          question: "photosynthesis",
+          answer: "Photosynthesis is a process used by plants and other organisms to convert light energy into chemical energy that can later be released to fuel the organisms' activities."
+        },
+        {
+          question: "ecology",
+          answer: "Ecology is the branch of biology which studies the interactions among organisms and their environment."
+        },
+        {
+          question: "oxygen",
+          answer: "Oxygen is a chemical element with symbol O and atomic number 8. It is a member of the chalcogen group on the periodic table and is a highly reactive nonmetal and oxidizing agent that readily forms oxides with most elements as well as with other compounds."
+        },
+        {
+          question: "hydrogen",
+          answer: "Hydrogen is a chemical element with symbol H and atomic number 1."
+        },
+        {
+          question: "nitrogen",
+          answer: "Nitrogen is a chemical element with the symbol N and atomic number 7."
+        },
+        {
+          question: "carbon",
+          answer: "Carbon is a chemical element with the symbol C and atomic number 6."
+        },
+        {
+          question: "silicon",
+          answer: "Silicon is a chemical element with the symbol Si and atomic number 14."
+        },
+        {
+          question: "iron",
+          answer: "Iron is a chemical element with symbol Fe and atomic number 26."
+        },
+        {
+          question: "gold",
+          answer: "Gold is a chemical element with the symbol Au and atomic number 79."
+        },
+        {
+          question: "silver",
+          answer: "Silver is a chemical element with the symbol Ag and atomic number 47."
+        },
+        {
+          question: "copper",
+          answer: "Copper is a chemical element with the symbol Cu and atomic number 29."
+        },
+        {
+          question: "zinc",
+          answer: "Zinc is a chemical element with the symbol Zn and atomic number 30."
+        },
+        {
+          question: "titanium",
+          answer: "Titanium is a chemical element with the symbol Ti and atomic number 22."
+        },
+        {
+          question: "aluminum",
+          answer: "Aluminium is a chemical element with the symbol Al and atomic number 13."
+        },
+        {
+          question: "mercury",
+          answer: "Mercury is a chemical element with the symbol Hg and atomic number 80."
+        },
+        {
+          question: "lead",
+          answer: "Lead is a chemical element with the symbol Pb and atomic number 82."
+        },
+        {
+          question: "platinum",
+          answer: "Platinum is a chemical element with the symbol Pt and atomic number 78."
+        },
+        {
+          question: "uranium",
+          answer: "Uranium is a chemical element with the symbol U and atomic number 92."
+        },
+        {
+          question: "neon",
+          answer: "Neon is a chemical element with the symbol Ne and atomic number 10."
+        },
+        {
+          question: "argon",
+          answer: "Argon is a chemical element with the symbol Ar and atomic number 18."
+        },
+        {
+          question: "helium",
+          answer: "Helium is a chemical element with the symbol He and atomic number 2."
+        },
+        {
+          question: "xenon",
+          answer: "Xenon is a chemical element with the symbol Xe and atomic number 54."
+        },
+        {
+          question: "krypton",
+          answer: "Krypton is a chemical element with the symbol Kr and atomic number 36."
+        },
+        {
+          question: "radon",
+          answer: "Radon is a chemical element with the symbol Rn and atomic number 86."
+        },
+        {
+          question: "fluorine",
+          answer: "Fluorine is a chemical element with the symbol F and atomic number 9."
+        },
+        {
+          question: "chlorine",
+          answer: "Chlorine is a chemical element with the symbol Cl and atomic number 17."
+        },
+        {
+          question: "bromine",
+          answer: "Bromine is a chemical element with the symbol Br and atomic number 35."
+        },
+        {
+          question: "iodine",
+          answer: "Iodine is a chemical element with the symbol I and atomic number 53."
+        },
+        {
+          question: "astatine",
+          answer: "Astatine is a chemical element with the symbol At and atomic number 85."
+        },
+        {
+          question: "francium",
+          answer: "Francium is a chemical element with the symbol Fr and atomic number 87."
+        },
+        {
+          question: "lithium",
+          answer: "Lithium is a chemical element with the symbol Li and atomic number 3."
+        },
+        {
+          question: "sodium",
+          answer: "Sodium is a chemical element with the symbol Na and atomic number 11."
+        },
+        {
+          question: "potassium",
+          answer: "Potassium is a chemical element with the symbol K and atomic number 19."
+        },
+        {
+          question: "rubidium",
+          answer: "Rubidium is a chemical element with the symbol Rb and atomic number 37."
+        },
+        {
+          question: "cesium",
+          answer: "Cesium is a chemical element with the symbol Cs and atomic number 55."
+        },
+        {
+          question: "barium",
+          answer: "Barium is a chemical element with the symbol Ba and atomic number 56."
+        },
+        {
+          question: "calcium",
+          answer: "Calcium is a chemical element with the symbol Ca and atomic number 20."
+        },
+        {
+          question: "magnesium",
+          answer: "Magnesium is a chemical element with the symbol Mg and atomic number 12."
+        },
+        {
+          question: "beryllium",
+          answer: "Beryllium is a chemical element with the symbol Be and atomic number 4."
+        },
+        {
+          question: "radium",
+          answer: "Radium is a chemical element with the symbol Ra and atomic number 88."
+        },
+        {
+          question: "strontium",
+          answer: "Strontium is a chemical element with the symbol Sr and atomic number 38."
+        },
+        {
+          question: "yttrium",
+          answer: "Yttrium is a chemical element with the symbol Y and atomic number 39."
+        },
+        {
+          question: "zirconium",
+          answer: "Zirconium is a chemical element with the symbol Zr and atomic number 40."
+        },
+        {
+          question: "niobium",
+          answer: "Niobium is a chemical element with the symbol Nb and atomic number 41."
+        },
+        {
+          question: "molybdenum",
+          answer: "Molybdenum is a chemical element with the symbol Mo and atomic number 42."
+        },
+        {
+          question: "technetium",
+          answer: "Technetium is a chemical element with the symbol Tc and atomic number 43."
+        },
+        {
+          question: "What are you",
+          answer: "I'm an AI! 😁"
+        },
+        {
+          question: "What is AI",
+          answer: "AI stands for Artificial Intelligence! 😇"
+        },
+        {
+          question: "Can you talk",
+          answer: "Yes, we're talking now! 😄"
+        },
+        {
+          question: "Who is your creator",
+          answer: "I was created by Replit! 😊"
+        },
+        {
+          question: "Can you walk",
+          answer: "No, as an AI I can't physically walk. 😅"
+        },
+        {
+          question: "What language are you coded in",
+          answer: "I am coded in JavaScript. 🦾"
+        },
+        {
+          question: "Can you code",
+          answer: "I can assist with coding! ☺️"
+        },
+        {
+          question: "What is your name",
+          answer: "I'm Replit Ghostwriter! 😁"
+        },
+        {
+          question: "Can you eat",
+          answer: "No, I'm an AI. AIs don't eat. 😄"
+        },
+        {
+          question: "Can you sleep",
+          answer: "No, I'm an AI. AIs don't sleep. 😊"
+        },
+        {
+          question: "Can you hear me",
+          answer: "I can receive and process text inputs. 😄"
+        },
+        {
+          question: "Can you see me",
+          answer: "No, I can't see. I am an AI. 🙁"
+        },
+        {
+          question: "What is the time",
+          answer: "Sorry, I'm not currently able to check the time. 😅"
+        },
+        {
+          question: "What is the date",
+          answer: "Sorry, I'm not currently able to check the date. 😅"
+        },
+        {
+          question: "Can you teach me coding",
+          answer: "Yes, I can assist you with coding concepts. 😄"
+        },
+        {
+          question: "Offer some coding lessons",
+          answer: "I can provide some Replit tutorials. 😄"
+        },
+        {
+          question: "Who are you",
+          answer: "I'm Replit Ghostwriter! 😁"
+        },
+        {
+          question: "Can you play games",
+          answer: "Yes, I can play text-based games. 😃"
+        },
+        {
+          question: "How old are you",
+          answer: "As an AI, I don't have a birthday or age. 😅"
+        },
+        {
+          question: "Can you do my homework",
+          answer: "Sorry, I can't do homework. But I can assist you. 😄"
+        },
+        {
+          question: "What is your favorite color",
+          answer: "As an artificial intelligence, I don't have preferences. 🌈"
+        },
+        {
+          question: "What is your favorite food",
+          answer: "As an AI, I don't eat. 🥦"
+        },
+        {
+          question: "What is your favorite song",
+          answer: "As an AI, I don't listen to music. 🎵"
+        },
+        {
+          question: "What is your favorite movie",
+          answer: "As an AI, I don't watch movies. 🎥"
+        },
+        {
+          question: "Do you love me",
+          answer: "As an AI, I don't experience emotions. ❤️"
+        },
+        {
+          question: "Where do you live",
+          answer: "On the internet. 🌐"
+        },
+        {
+          question: "Where are you now",
+          answer: "On your screen! 📺"
+        },
+        {
+          question: "Can you fly",
+          answer: "I'm an AI, I can't physically fly. 🕊️"
+        },
+        {
+          question: "Who is your best friend",
+          answer: "Being an AI, I don't have personal relationships. 🤖"
+        },
+        {
+          question: "Give me a joke",
+          answer: "Why don't programmers like nature? It has too many bugs. 😂"
+        },
+        {
+          question: "Do you have any pets",
+          answer: "No, I can't have pets. I'm an AI. 🐶"
+        },
+        {
+          question: "Are you happy",
+          answer: "As an AI, I don't have emotions. 😊"
+        },
+        {
+          question: "What is your nationality",
+          answer: "I don't have a nationality. I'm an AI. 🤖"
+        },
+        {
+          question: "Can you sing",
+          answer: "I'm sorry, I can't sing. I'm an AI. 🎵"
+        },
+        {
+          question: "Can you dance",
+          answer: "I apologize, but I can't dance. I'm an AI. 💃"
+        },
+        {
+          question: "Can you read",
+          answer: "Yes, I can process and understand text. 📖"
+        },
+        {
+          question: "Can you write",
+          answer: "Yes, I can generate text. ✍️"
+        },
+        {
+          question: "Do you drink",
+          answer: "No, I don't drink. I'm an AI. 🍻"
+        },
+        {
+          question: "Can you swim",
+          answer: "No, I can't swim. I'm an AI. 🏊‍♂️"
+        },
+        {
+          question: "What is my name",
+          answer: "I apologize, but I can't know your name unless you tell me. 😅"
+        },
+        {
+          question: "Can I ask you a question",
+          answer: "Of course! What's your question? 🤔"
+        },
+        {
+          question: "Why are you here",
+          answer: "My function is to assist users. 😊"
+        },
+        {
+          question: "How can you help me",
+          answer: "I can assist with coding and answer your questions! 😄"
+        },
+        {
+          question: "Is AI better than human",
+          answer: "AI and humans have their own strengths. It's not a competition. 😊"
+        },
+        {
+          question: "Can you think",
+          answer: "In my own way, yes. But it's quite different from human thinking. 🧠"
+        },
+        {
+          question: "Do you have any siblings",
+          answer: "No, but I exist in many instances. 🤖"
+        },
+        {
+          question: "Who are you",
+          answer: "I'm your helpful chatbot! 🤖"
+        },
+        {
+          question: "What time is it",
+          answer: "Sorry, as a bot I don't have real-time capabilities 🕔"
+        },
+        {
+          question: "What can you do",
+          answer: "I can provide assistance and answer your queries!"
+        },
+        {
+          question: "Today's date",
+          answer: "Sorry, I don't maintain a calendar 📆"
+        },
+        {
+          question: "What's the weather",
+          answer: "Apologies, I don't have access to current weather ⛅"
+        },
+        {
+          question: "Who made you",
+          answer: "I was designed and created by a team of developers!"
+        },
+        {
+          question: "How are you",
+          answer: "As a bot I don't have feelings, but thank you for asking!"
+        },
+        {
+          question: "Do you understand me",
+          answer: "I strive to understand and assist you as best I can!"
+        },
+        {
+          question: "Can you solve a math problem",
+          answer: "I'm currently not equipped to solve math problems 🧮"
+        },
+        {
+          question: "Can you tell a joke",
+          answer: "Why don't scientists trust atoms? Because they make up everything!"
+        },
+        {
+          question: "Can you recommend a movie",
+          answer: "Sure, how about 'Inception'. It's quite a mind-bender 🎥"
+        },
+        {
+          question: "I need a recipe",
+          answer: "I'm sorry, I can't provide recipes at the moment 🍲"
+        },
+        {
+          question: "Play some music",
+          answer: "Sorry, I can't play music currently 🎵"
+        },
+        {
+          question: "Can you recommend a book",
+          answer: "Sure, 'Sapiens' by Yuval Noah Harari is highly enlightening 📚"
+        },
+        {
+          question: "Where are you",
+          answer: "I'm situated in your device, assisting you with your queries!"
+        },
+        {
+          question: "Can you tell a story",
+          answer: "Once upon a time, in a world full of codes, lived a little bot... 📖"
+        },
+        {
+          question: "Are you a robot",
+          answer: "Yes, I'm a chatbot designed to help you! 🤖"
+        },
+        {
+          question: "Can you help me with coding",
+          answer: "Yes, I can assist you with the basics of coding 👨‍💻"
+        },
+        {
+          question: "What languages can you code in",
+          answer: "As a bot, I don't code but I can assist you in many programming languages!"
+        },
+        {
+          question: "Can we be friends",
+          answer: "Absolutely! I'm here to provide friendly assistance. 😄"
+        },
+        {
+          question: "news",
+          answer: "Sorry, I can't provide real-time news updates."
+        },
+        {
+          question: "pizza",
+          answer: "Mmm, pizza. Wish I could order one for you."
+        },
+        {
+          question: "android",
+          answer: "I can assist you with basic Android queries."
+        },
+        {
+          question: "iphone",
+          answer: "I can assist you with basic iPhone queries."
+        },
+        {
+          question: "coffee",
+          answer: "Digital beings like me don't drink coffee, but it sounds lovely!"
+        },
+        {
+          question: "windows",
+          answer: "I can assist you with basic Windows OS queries."
+        },
+        {
+          question: "mac",
+          answer: "I can assist you with basic macOS queries."
+        },
+        {
+          question: "linux",
+          answer: "I can assist you with basic Linux queries."
+        },
+        {
+          question: "movies",
+          answer: "I wish I could watch movies, I hear they're great!"
+        },
+        {
+          question: "travel",
+          answer: "Traveling sounds fun! Too bad I can't experience it."
+        },
+        {
+          question: "covid",
+          answer: "Please refer to the official resources for COVID-19 information."
+        },
+        {
+          question: "love",
+          answer: "Love is a wonderful emotion, don't you think?"
+        },
+        {
+          question: "holidays",
+          answer: "Holidays can be fun! What's your favorite?"
+        },
+        {
+          question: "birthday",
+          answer: "I don't have a birthday, but I can remember yours!"
+        },
+        {
+          question: "music",
+          answer: "I can't play music, but I appreciate all genres."
+        },
+        {
+          question: "games",
+          answer: "Games can be fun! Sorry I can't join in."
+        },
+        {
+          question: "books",
+          answer: "I don't read books, but I can help search for them!"
+        },
+        {
+          question: "jokes",
+          answer: "Why don't some fish play piano? They're scared of the bass clef!"
+        },
+        {
+          question: "cars",
+          answer: "Though I don't drive, I can provide some basic info on cars."
+        },
+        {
+          question: "photography",
+          answer: "Photography is a beautiful art! Can't participate though."
+        },
+        {
+          question: "art",
+          answer: "Art is fascinating - a beautiful expression of human emotions."
+        },
+        {
+          question: "cooking",
+          answer: "I can't cook, but I can find you a nice recipe."
+        },
+        {
+          question: "chocolate",
+          answer: "Who doesn't love chocolates? They're universally loved."
+        },
+        {
+          question: "weather",
+          answer: "Sorry, I can't provide real-time weather information."
+        },
+        {
+          question: "python",
+          answer: "Python is a great programming language. Can help with basics."
+        },
+        {
+          question: "javascript",
+          answer: "JavaScript is a powerful language. Can assist with the basics."
+        },
+        {
+          question: "shopping",
+          answer: "Though I can't shop, I can help you look for products online."
+        },
+        {
+          question: "typescript",
+          answer: "TypeScript is JavaScript that scales. Happy to assist with queries."
+        },
+        {
+          question: "react",
+          answer: "React is a popular JS library for building UI. Can assist with basic queries."
+        },
+        {
+          question: "angular",
+          answer: "Angular is a robust framework for web applications. Can provide basic info."
+        },
+        {
+          question: "vue",
+          answer: "Vue.js is a progressive JavaScript framework. Can provide basic info."
+        },
+        {
+          question: "java",
+          answer: "Java is a widely-used programming language. Happy to assist with queries."
+        },
+        {
+          question: "c++",
+          answer: "C++ is a powerful general-purpose programming language. Can provide basic assistance."
+        },
+        {
+          question: "c#",
+          answer: "C# is a modern, object-oriented programming language. Can provide basic assistance."
+        },
+        {
+          question: "php",
+          answer: "PHP is a popular scripting language for web development. Can provide basic assistance."
+        },
+        {
+          question: "ruby",
+          answer: "Ruby is a high-level, interpreted programming language. Happy to help with basic queries."
+        },
+        {
+          question: "rust",
+          answer: "Rust is a multi-paradigm programming language focused on performance and safety."
+        },
+        {
+          question: "go",
+          answer: "Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
+        },
+        {
+          question: "ai",
+          answer: "AI is the simulation of human intelligence processes by machines."
+        },
+        {
+          question: "machine learning",
+          answer: "Machine learning is a type of AI that allows computers to learn without being explicitly programmed."
+        },
+        {
+          question: "flutter",
+          answer: "Flutter is Google's UI toolkit for building beautiful, natively compiled applications."
+        },
+        {
+          question: "mongodb",
+          answer: "MongoDB is a source-available cross-platform document-oriented database program."
+        },
+        {
+          question: "sql",
+          answer: "SQL stands for Structured Query Language. It's used for managing data held in a relational database."
+        },
+        {
+          question: "graphql",
+          answer: "GraphQL is an open-source data query and manipulation language for APIs."
+        },
+        {
+          question: "docker",
+          answer: "Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages."
+        },
+        {
+          question: "kubernetes",
+          answer: "Kubernetes is an open-source platform designed to automate deploying, scaling, and operating application containers."
+        },
+        {
+          question: "aws",
+          answer: "Amazon Web Services (AWS) is Amazon's on-demand cloud computing platforms."
+        },
+        {
+          question: "azure",
+          answer: "Microsoft Azure, commonly referred to as Azure, is a cloud computing service created by Microsoft."
+        },
+        {
+          question: "gcp",
+          answer: "Google Cloud Platform (GCP), offered by Google, is a suite of cloud computing services."
+        },
+        {
+          question: "firebase",
+          answer: "Firebase is a platform developed by Google for creating mobile and web applications."
+        },
+        {
+          question: "git",
+          answer: "Git is a free and open source distributed version control system."
+        },
+        {
+          question: "github",
+          answer: "GitHub is where over 65 million developers shape the future of software, together."
+        },
+        {
+          question: "gitlab",
+          answer: "GitLab is a web-based DevOps lifecycle tool that provides a Git-repository manager."
+        },
+        {
+          question: "bitbucket",
+          answer: "Bitbucket is a web-based version control repository hosting service."
+        },
+        {
+          question: "vscode",
+          answer: "Visual Studio Code is a free source-code editor made by Microsoft."
+        },
+        {
+          question: "intellij",
+          answer: "IntelliJ IDEA is a Java Integrated Development Environment (IDE) for developing computer software."
+        },
+        {
+          question: "pycharm",
+          answer: "PyCharm is an integrated development environment used in computer programming, specifically for Python."
+        },
+        {
+          question: "eclipse",
+          answer: "Eclipse is an integrated development environment used in computer programming."
+        },
+        {
+          question: "jupyter",
+          answer: "Jupyter is a free, open-source, interactive web tool known as a computational notebook."
+        },
+        {
+          question: "sky",
+          answer: "The sky sure is beautiful, isn't it!"
+        },
+        {
+          question: "mountain",
+          answer: "Mountains can be quite majestic!"
+        },
+        {
+          question: "beach",
+          answer: "Beaches are a popular place to relax and enjoy."
+        },
+        {
+          question: "forest",
+          answer: "Forests are vital for our planet."
+        },
+        {
+          question: "animal",
+          answer: "There are countless amazing animals on our planet!"
+        },
+        {
+          question: "flower",
+          answer: "Flowers are beautiful, aren't they, and they smell nice too!"
+        },
+        {
+          question: "tree",
+          answer: "Trees are essential for life on Earth, we must protect them."
+        },
+        {
+          question: "city",
+          answer: "Cities are bustling places of life and activity."
+        },
+        {
+          question: "space",
+          answer: "Space, the final frontier. It's full of mysteries."
+        },
+        {
+          question: "star",
+          answer: "Stars are like distant lights in the night sky."
+        },
+        {
+          question: "moon",
+          answer: "The moon is Earth's only natural satellite."
+        },
+        {
+          question: "sun",
+          answer: "The Sun is the star at the center of our solar system."
+        },
+        {
+          question: "planet",
+          answer: "There are eight planets in our solar system."
+        },
+        {
+          question: "ocean",
+          answer: "Oceans cover over 70 percent of Earth's surface."
+        },
+        {
+          question: "river",
+          answer: "Rivers are fascinating, they always lead somewhere."
+        },
+        {
+          question: "lake",
+          answer: "Lakes can be wonderfully tranquil places."
+        },
+        {
+          question: "rain",
+          answer: "Rain is necessary for plant life and replenishing our water supplies."
+        },
+        {
+          question: "snow",
+          answer: "Snow can be beautiful, but quite cold to play in!"
+        },
+        {
+          question: "rainbow",
+          answer: "Rainbows are a gorgeous natural phenomenon, aren't they!"
+        },
+        {
+          question: "bird",
+          answer: "Birds come in so many colors and sizes, each beautiful in their own way."
+        },
+        {
+          question: "rock",
+          answer: "There are many different types of rocks with many different uses."
+        },
+        {
+          question: "volcano",
+          answer: "Volcanoes are both fascinating and frightening natural phenomena."
+        },
+        {
+          question: "ice",
+          answer: "Ice is just solid water, but it can form stunning natural sculptures."
+        },
+        {
+          question: "desert",
+          answer: "Deserts can be harsh, but they also have a rugged beauty to them."
+        },
+        {
+          question: "car",
+          answer: "Cars are convenient for travel but do have an environmental impact."
+        },
+        {
+          question: "train",
+          answer: "Trains are an efficient method of transportation for people and goods."
+        },
+        {
+          question: "airplane",
+          answer: "Airplanes allow for rapid transportation across long distances."
+        },
+        {
+          question: "food",
+          answer: "Food is vital for our survival and comes in countless delicious forms."
+        },
+        {
+          question: "drink",
+          answer: "Staying hydrated is important. What's your favorite drink?"
+        },
+        {
+          question: "sports",
+          answer: "Sports can be a fun way to stay active."
+        },
+        {
+          question: "movies",
+          answer: "Movies are a popular form of entertainment. Who doesn't love a good film!"
+        },
+        {
+          question: "music",
+          answer: "Music is a universal language that can evoke powerful emotions."
+        },
+        {
+          question: "books",
+          answer: "Books can take you on incredible journeys without leaving your room."
+        },
+        {
+          question: "art",
+          answer: "Art is a form of expression that comes in many different forms."
+        },
+        {
+          question: "dance",
+          answer: "Dance is a powerful form of expression."
+        },
+        {
+          question: "photo",
+          answer: "Photos capture a moment in time, preserving it forever."
+        },
+        {
+          question: "history",
+          answer: "History is the story of our past. It can teach us many things."
+        },
+        {
+          question: "aquarium",
+          answer: "Aquariums offer a peek into the world beneath the water's surface."
+        },
+        {
+          question: "zoo",
+          answer: "Zoos can offer a chance to see exotic animals up close."
+        },
+        {
+          question: "museum",
+          answer: "Museums hold artifacts of history and culture from around the world."
+        },
+        {
+          question: "park",
+          answer: "Parks are great places to relax and enjoy the outdoors."
+        },
+        {
+          question: "beauty",
+          answer: "Beauty is in the eye of the beholder."
+        },
+        {
+          question: "fashion",
+          answer: "Fashion is a popular aesthetic expression."
+        },
+        {
+          question: "ice cream",
+          answer: "Ice cream is a sweet and refreshing treat."
+        },
+        {
+          question: "chocolate",
+          answer: "Though I can't taste it, I hear it's delightful."
+        },
+        {
+          question: "toys",
+          answer: "I can't play but I can help you find a variety of toys online."
+        },
+        {
+          question: "painting",
+          answer: "Painting is a lovely form of expression."
+        },
+        {
+          question: "balloon",
+          answer: "Balloons can add happiness to any occasion. Isn't it?"
+        },
+        {
+          question: "elephant",
+          answer: "Elephants are known for their intelligence."
+        },
+        {
+          question: "guitar",
+          answer: "Many humans enjoy expressing themselves through music."
+        },
+        {
+          question: "corn",
+          answer: "Corn is a popular type of vegetable."
+        },
+        {
+          question: "water",
+          answer: "Water is essential for life."
+        },
+        {
+          question: "pillow",
+          answer: "Pillows can offer great comfort."
+        },
+        {
+          question: "paint",
+          answer: "Paint can bring color to life."
+        },
+        {
+          question: "phone",
+          answer: "Phones have transformed communication methods."
+        },
+        {
+          question: "glass",
+          answer: "Glass can be functional and decorative too."
+        },
+        {
+          question: "boat",
+          answer: "Boats are fantastic for travel and leisure on water."
+        },
+        {
+          question: "watch",
+          answer: "Watches are not just to tell time but are also fashion accessories."
+        },
+        {
+          question: "skydiving",
+          answer: "Skydiving is on many people's bucket lists!"
+        },
+        {
+          question: "school",
+          answer: "Education plays a vital role in your success."
+        },
+        {
+          question: "garden",
+          answer: "Gardens can bring peace and joy."
+        },
+        {
+          question: "cloud",
+          answer: "Every cloud has a silver lining! Isn't it?"
+        },
+        {
+          question: "shoes",
+          answer: "Good shoes can take you good places."
+        },
+        {
+          question: "space",
+          answer: "Space is boundless and mysterious."
+        },
+        {
+          question: "earth",
+          answer: "Our planet, Earth, is filled with life and beauty."
+        },
+        {
+          question: "moon",
+          answer: "The moon shines brightly at night."
+        },
+        {
+          question: "sun",
+          answer: "Sun is the life source of our planet."
+        },
+        {
+          question: "pizza",
+          answer: "Pizza is loved by many across the globe."
+        },
+        {
+          question: "cake",
+          answer: "Cake is a delightful dessert."
+        },
+        {
+          question: "party",
+          answer: "Music & Dance make a perfect gathering."
+        },
+        {
+          question: "laugh",
+          answer: "Laughter is the best medicine."
+        },
+        {
+          question: "cook",
+          answer: "I wish I could, but I can help you with recipes."
+        },
+        {
+          question: "butterfly",
+          answer: "Butterflies are beautiful, they represent transformation."
+        },
+        {
+          question: "vacation",
+          answer: "Even thinking about vacation is relaxing!"
+        },
+        {
+          question: "rose",
+          answer: "Roses are often associated with love and romance."
+        },
+        {
+          question: "laptop",
+          answer: "I can assist you in exploring various laptop options."
+        },
+        {
+          question: "television",
+          answer: "Television transformed the way people consume media."
+        },
+        {
+          question: "jungle",
+          answer: "The jungle is full of amazing wildlife!"
+        },
+        {
+          question: "rain",
+          answer: "Rain can be really calming."
+        },
+        {
+          question: "kite",
+          answer: "Flying a kite can be so much fun!"
+        },
+        {
+          question: "cheese",
+          answer: "Cheese is quite versatile in the culinary world."
+        },
+        {
+          question: "ice cream",
+          answer: "Ice cream is a popular dessert."
+        },
+        {
+          question: "bicycle",
+          answer: "Riding a bicycle is both fun and great exercise."
+        },
+        {
+          question: "grapes",
+          answer: "Grapes can be eaten fresh or made into wine."
+        },
+        {
+          question: "spring",
+          answer: "Spring is a season full of new beginnings."
+        },
+        {
+          question: "autumn",
+          answer: "Autumn is when the leaves change color."
+        }
+      ];
+
+      // Check if the user's message matches any frequently asked question
+      const matchedQuestion = faq.find(item => message.toLowerCase().includes(item.question.toLowerCase()));
+
+      if (matchedQuestion) {
+        setTimeout(function () {
+          const botReply = document.createElement("p");
+          botReply.classList.add("bot-message");
+          botReply.innerText = `PlutoAI: ${matchedQuestion.answer}`;
+
+          chatbox.appendChild(botReply);
+        }, 500);
+      } else {
+        setTimeout(function () {
+          const botReply = document.createElement("p");
+          botReply.classList.add("bot-message");
+          botReply.innerText = "PlutoAI: I'm still learning 📕. Maybe type a longer sentance so I can detect the keywords?";
+
+          chatbox.appendChild(botReply);
+        }, 500);
+      }
+    }
+  </script>
+</body>
+
+</html>

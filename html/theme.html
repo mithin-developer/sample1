@@ -1,0 +1,85 @@
+<div style="display: none;" class="draggable" id="ThemeManager" data-width="400px" data-height="300px">
+  <div class="draggableHeader">
+    Theme Manager
+    <button id="closeButtonTheme" class="closeButton" style="float:right;">&#8239;&#8239;</button>
+  </div>
+  <p>Select a theme:</p>
+  <label for="themeDefault">Default</label>
+  <input type="radio" id="themeDefault" name="theme" value="default">
+  <label for="themeDark">Dark</label>
+  <input type="radio" id="themeDark" name="theme" value="dark">
+  <label for="themeLight">Light</label>
+  <input type="radio" id="themeLight" name="theme" value="light">
+  <button id="applyThemeButton">Apply</button>
+  <div class="resizer"></div>
+</div>
+
+
+<script>
+  // Function to apply the selected theme
+function applyTheme(selectedTheme) {
+  const body = document.body;
+  const themeOptions = ["default", "dark", "light"];
+
+  // Remove the previous theme class
+  body.classList.remove(...themeOptions);
+
+  // Add the selected theme class to the body
+  if (themeOptions.includes(selectedTheme)) {
+    body.classList.add(selectedTheme);
+  }
+}
+
+// Function to open the Theme Manager window
+function openThemeManager() {
+  const themeManagerWindow = document.getElementById("ThemeManager");
+  themeManagerWindow.style.display = "block";
+}
+
+// Add an event listener to apply the theme when the Apply button is clicked
+const applyThemeButton = document.getElementById("applyThemeButton");
+applyThemeButton.addEventListener("click", function () {
+  const themeOptions = document.getElementsByName("theme");
+  let selectedTheme;
+
+  // Find the selected theme
+  for (const option of themeOptions) {
+    if (option.checked) {
+      selectedTheme = option.value;
+      break;
+    }
+  }
+
+  if (selectedTheme) {
+    applyTheme(selectedTheme);
+  }
+});
+
+// Add an event listener to open the Theme Manager when a specific button is clicked
+const openThemeManagerButton = document.getElementById("openThemeManagerButton");
+openThemeManagerButton.addEventListener("click", function () {
+  openThemeManager();
+});
+
+</script>
+
+<style>
+  /* Default Theme */
+.default {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+/* Dark Theme */
+.dark {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Light Theme */
+.light {
+  background-color: #fff;
+  color: #333;
+}
+
+</style>
